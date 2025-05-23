@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI avec Maven
 
 on:
   push:
@@ -12,32 +12,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Set up JDK 17
+
+    - name: Configuration de Java 21
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: maven
-        
-    - name: Build with Maven
+
+    - name: Build avec Maven
       run: mvn -B clean compile
 
-    - name: Run Tests
+    - name: Tests unitaires
       run: mvn -B test
-      
-    - name: Generate Test Report
+
+    - name: Rapport de tests
       run: mvn -B surefire-report:report
       if: always()
-      
-    - name: Upload Test Results
-      uses: actions/upload-artifact@v3
+
+    - name: Publication des résultats de tests
       if: always()
+      uses: actions/upload-artifact@v2
       with:
-        name: test-reports
+        name: rapports-tests
         path: target/site/
-        
-    - name: Cache Maven packages
+
+    - name: Mise en cache des packages Maven
       uses: actions/cache@v3
       with:
         path: ~/.m2
