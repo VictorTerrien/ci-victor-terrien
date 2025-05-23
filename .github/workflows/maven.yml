@@ -28,8 +28,8 @@ jobs:
     - name: Run tests and generate code coverage report
       run: mvn test jacoco:report
 
-    - name: Upload coverage report to Codecov
-      uses: codecov/codecov-action@v4
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v4
       with:
-        files: target/site/jacoco/jacoco.xml
-        fail_ci_if_error: true
+        name: jacoco-report
+        path: target/site/jacoco/
